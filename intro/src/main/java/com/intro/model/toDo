@@ -1,0 +1,6 @@
+1 Créez une classe Article(id, libelle, prix)
+2 Un controller ArticleController
+	creerArticle, lireArticles, deleteArticle
+
+une vue pour le formulaire 
+une vue pour l'affichaga
