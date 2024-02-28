@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +13,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.intro.model.User;
+import com.intro.repository.UserRepository;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    UserRepository     userRepository;
 
     private List<User> users = new ArrayList<>();
 
     @GetMapping( "/" )
     public String index( Model model ) {
 
-        model.addAttribute( "users", users );
+        model.addAttribute( "users", userRepository.findAll() );
 
         return "index";
     }
@@ -31,6 +36,8 @@ public class HomeController {
         User u = new User( users.size() + 1, args.get( "prenom" ), args.get( "nom" ),
                 Integer.parseInt( args.get( "age" ) ) );
         users.add( u );
+
+        userRepository.save( u );
 
         return "redirect:/";
     }
@@ -44,13 +51,15 @@ public class HomeController {
 
     @GetMapping( "/add" )
     public String add() {
-        System.out.println( "add" );
+
         return "user/add";
     }
 
     @GetMapping( "/delete/{id}" )
     public String delete( @PathVariable int id ) {
-        System.out.println( id );
+        User u = userRepository.findById( id ).get();
+        userRepository.delete( u );
+
         return "redirect:/";
     }
 
