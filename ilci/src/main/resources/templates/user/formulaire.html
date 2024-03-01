@@ -42,6 +42,14 @@
 			    <input type="password" class="form-control"  th:field="*{mdp}">
 			  </div>
 			  
+			  <div class="mb-3">
+			  	<div class="mb-3 form-check" th:each="promo: ${promos}">
+			    	<input type="radio" class="form-check-input" th:field="*{promo}" th:id="${promo.id}" th:value="${promo.id}" name="promo">
+			    	<label class="form-check-label" th:for="${promo.id}">[[${promo.nom}]]</label>
+			  	</div>
+			  	
+			  </div>
+			  
 			  <button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 		

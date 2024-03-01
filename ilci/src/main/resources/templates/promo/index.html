@@ -8,6 +8,42 @@
 	
 	<main class="container-fluid">
 		<h2 class="text-center">Gestion promo</h2>
+		
+		<table class="table table-striped">
+			<tr class="table-dark">
+				<th>ID</th>
+				<th>Nom</th>
+				<th>Etudiants</th>
+				<th>Matières</th>
+				<th>Action</th>
+			</tr>
+			
+			<tr th:each="promo: ${promos}">
+				<td th:text=${promo.id}></td>
+				<td th:text=${promo.nom}></td>
+				<td>
+					<span th:each="user: ${promo.users}">[[${user.prenom}]] - </span>
+				</td>
+				<td>
+					<span th:each="mat: ${promo.matieres}">[[${mat.libelle}]] - </span>
+				</td>
+				<td>
+					<a >UP</a>
+					<a >DEL</a>
+				</td>
+			</tr>
+			
+		</table>
+		
+		<form th:action="@{/promos/add}" th:object="${promo}" method="post">
+			<div class="mb-3">
+			    <label class="form-label">Nom matière</label>
+			    <input type="text" class="form-control" th:field="*{nom}">
+			 </div>
+			 
+			 <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+		
 	</main>
 	
 	<th:block th:insert="~{_commun :: footer}"></th:block>

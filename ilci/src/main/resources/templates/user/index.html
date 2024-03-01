@@ -9,7 +9,7 @@
 	<main class="container-fluid">
 		<h2 class="text-center">Gestion étudiants</h2>
 		
-		<table class="table table-strepid">
+		<table class="table table-striped">
 			<tr class="table-dark">
 				<th>ID</th>
 				<th>Sexe</th>
@@ -17,6 +17,7 @@
 				<th>Nom</th>
 				<th>Login</th>
 				<th>Statut</th>
+				<th>Promo</th>
 				<th>Action</th>
 			</tr>
 			
@@ -29,6 +30,7 @@
 				<td th:text="${user.nom}"></td>
 				<td th:text="${user.login}"></td>
 				<td th:text="${user.statut}"></td>
+				<td th:text="${user.promo.nom}"></td>
 				<td>
 					<a th:href="@{/user/update/__${user.id}__}">UP</a>
 					<a th:href="@{/user/delete/__${user.id}__}">DEL</a>

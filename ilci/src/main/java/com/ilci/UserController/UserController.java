@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ilci.model.User;
+import com.ilci.repository.PromoRepository;
 import com.ilci.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +19,9 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    UserRepository  userRepository;
+    @Autowired
+    PromoRepository promoRepository;
 
     @GetMapping( "/user" )
     public String index( Model model ) {
@@ -33,7 +36,8 @@ public class UserController {
     }
 
     @PostMapping( "/user/login/try" )
-    public String login( @RequestParam String login,
+    public String login(
+            @RequestParam String login,
             @RequestParam String mdp,
             HttpSession session ) {
         User u = userRepository.findByLoginAndMdp( login, mdp );
@@ -57,6 +61,7 @@ public class UserController {
     public String ajouter( Model model ) {
         User user = new User();
         model.addAttribute( "user", user );
+        model.addAttribute( "promos", promoRepository.findAll() );
 
         return "user/formulaire";
     }
