@@ -25,16 +25,20 @@
 			  <div class="mb-3">
 			    <label class="form-label">Prénom</label>
 			    <input type="text" class="form-control" th:field="*{prenom}">
+			    <div th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}" class="alert alert-danger p-1 mt-1"></div>
 			  </div>
 			  
 			  <div class="mb-3">
 			    <label class="form-label">Nom</label>
 			    <input type="text" class="form-control" th:field="*{nom}">
+			    <div th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="alert alert-danger p-1 mt-1"></div>
 			  </div>
 			  
 			  <div class="mb-3">
 			    <label class="form-label">Login</label>
 			    <input type="text" class="form-control" th:field="*{login}">
+			    <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="alert alert-danger p-1 mt-1"></div>
+			    <div class="p-2 text-danger" th:text="${unique}">err</div>
 			  </div>
 			  
 			  <div class="mb-3">
