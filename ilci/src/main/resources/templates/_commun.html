@@ -44,6 +44,10 @@
 			</div>
 		      <div class="text-end" th:if="${session.user}" th:text="${session.user.prenom}">toto</div>
 		</nav>
+		
+		<div class="aler alert-danger p-2 mt-3 text-center" th:if="${warning}" th:text="${warning}">warning</div>
+		<div class="aler alert-success p-2 mt-3 text-center" th:if="${success}" th:text="${success}">success</div>
+		
 	</header>
 	
 	<th:block  th:fragment="footer">

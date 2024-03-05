@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ilci.model.Promo;
 import com.ilci.repository.PromoRepository;
@@ -31,14 +32,15 @@ public class PromoController {
     }
 
     @GetMapping( "/promos/{id}" )
-    public String delete( Model model, @PathVariable int id ) {
+    public String delete( @PathVariable int id, RedirectAttributes ra ) {
         Promo promo = promoRepository.findById( id ).get();
 
-        if ( promo.getMatieres().size() != 0 || promo.getUsers().size() != 0 ) {
-            return "redirect:/promos";
+        try {
+            promoRepository.delete( promo );
+            ra.addFlashAttribute( "success", "La promo " + promo.getNom() + " supprimée avec success" );
+        } catch ( Exception e ) {
+            ra.addFlashAttribute( "warning", "La promo " + promo.getNom() + " contient des users et/ou matières" );
         }
-
-        promoRepository.delete( promo );
         return "redirect:/promos";
     }
 }

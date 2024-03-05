@@ -10,11 +10,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class User {
 
@@ -25,7 +23,7 @@ public class User {
     @Column( length = 10 )
     private String  sexe;
 
-    @Size( min = 2, max = 30, message = "mini 2 caract et max 30" )
+    @Size( min = 2, max = 30 )
     @Column( length = 30, nullable = false )
     private String  prenom;
 
@@ -51,6 +49,13 @@ public class User {
     @Override
     public String toString() {
         return "User [id=" + id + ", sexe=" + sexe + ", prenom=" + prenom + ", nom=" + nom + ", login=" + login
-                + ", mdp=" + mdp + ", statut=" + statut + "]";
+                + ", mdp=" + mdp + ", ville=" + ville + ", statut=" + statut + ", promo=" + promo + "]";
     }
+
+    // @Override
+    // public String toString() {
+    // return "User [id=" + id + ", sexe=" + sexe + ", prenom=" + prenom + ",
+    // nom=" + nom + ", login=" + login
+    // + ", mdp=" + mdp + ", statut=" + statut + "]";
+    // }
 }
