@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -15,6 +16,8 @@ public class Matiere {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
+
+    @Size( min = 2, max = 20 )
     private String  libelle;
 
     @ManyToOne

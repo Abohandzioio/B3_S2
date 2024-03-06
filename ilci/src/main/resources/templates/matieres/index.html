@@ -8,6 +8,29 @@
 	
 	<main class="container-fluid">
 		<h2 class="text-center">Gestion matière</h2>
+		
+		<a th:href="@{/matieres/add}" class="btn btn-success mb-3">Ajouter</a>
+		
+		<table class="table table-striped">
+			<tr class="table-dark">
+				<th>Id</th>
+				<th>Libellé</th>
+				<th>Promo</th>
+				<th>Action</th>
+			</tr>
+			
+			<tr th:each="matiere: ${matieres}">
+				<td th:text="${matiere.id}"></td>
+				<td th:text="${matiere.libelle}"></td>
+				<td th:text="${matiere.promo.nom}"></td>
+				<td>
+					<a th:href="@{/matieres/update/__${matiere.id}__}">Update</a>
+					<a th:href="@{/matieres/delete/__${matiere.id}__}">Delete</a>
+				</td>
+			</tr>
+			
+		</table>
+		
 	</main>
 	
 	<th:block th:insert="~{_commun :: footer}"></th:block>
