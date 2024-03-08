@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		<h2 class="text-center">Gestion matière</h2>
+		
+<!-- 		<a th:href="@{/notations/add}" class="btn btn-success mb-3">Ajouter</a> -->
+		
+		<table class="table table-striped">
+			<tr class="table-dark">
+				<th>Id</th>
+				<th>Note</th>
+				<th>Etudiant</th>
+				<th>Matière</th>
+				<th>Action</th>
+			</tr>
+			
+			<tr th:each="note: ${notes}">
+				<td th:text="${note.id}"></td>
+				<td th:text="${note.note}"></td>
+				<td th:text="${note.etudiant.prenom}"></td>
+				<td th:text="${note.matiere.libelle}"></td>
+				<td>
+					<a th:href="@{/notationes/update/__${note.id}__}">Update</a>
+					<a th:href="@{/notationes/delete/__${note.id}__}">Delete</a>
+				</td>
+			</tr>
+			
+		</table>
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+
+

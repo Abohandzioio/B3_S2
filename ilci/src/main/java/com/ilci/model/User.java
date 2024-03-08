@@ -1,5 +1,8 @@
 package com.ilci.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -18,33 +22,36 @@ public class User {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private Integer id;
+    private Integer        id;
 
     @Column( length = 10 )
-    private String  sexe;
+    private String         sexe;
 
     @Size( min = 2, max = 30 )
     @Column( length = 30, nullable = false )
-    private String  prenom;
+    private String         prenom;
 
     @Size( min = 2, max = 30 )
     @Column( length = 30, nullable = false )
-    private String  nom;
+    private String         nom;
 
     @Size( min = 4, max = 8 )
     @NotBlank
     @Column( length = 10, nullable = false, unique = true )
-    private String  login;
+    private String         login;
 
     @NotEmpty
     @Column( length = 10, nullable = false )
-    private String  mdp;
-    private String  ville  = "Paris";
-    private String  statut = "ETUDIANT";
+    private String         mdp;
+    private String         ville  = "Paris";
+    private String         statut = "ETUDIANT";
 
     @ManyToOne
     @JoinColumn( name = "promo_id" )
-    private Promo   promo;
+    private Promo          promo;
+
+    @OneToMany( mappedBy = "etudiant" )
+    private List<Notation> notes  = new ArrayList<>();
 
     @Override
     public String toString() {

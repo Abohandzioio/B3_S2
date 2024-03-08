@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		<h2 class="text-center">Ajouter une Note</h2>
+		
+		<form th:action="@{/notations/create}" method="post" th:object="${notation}">
+		
+			<input type="hidden" th:field="*{id}"/>
+		
+			<div class="form-group">
+				<label for="" class="form-label">Note</label>
+				<input type="number" class="form-group" th:field="*{note}"/>
+				<div class="alert alert-danger p-1 mt-1" th:if="${#fields.hasErrors('note')}" th:errors="*{note}">err</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="">Etudiant</label>
+				<select name="" id="" th:field="*{etudiant}" class="form-select">
+					<option th:each="et: ${etudiants}" th:value="${et.id}" th:text="${et.prenom}"></option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label for="">Matière</label>
+				<select name="" id="" th:field="*{matiere}" class="form-select">
+					<option th:each="mat: ${matieres}" th:value="${mat.id}" th:text="${mat.libelle}"></option>
+				</select>
+			</div>
+			
+			<button type="submit" class="btn btn-success mt-3">Valider</button>
+		
+		</form>
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+
+
