@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Afficher</title>
+</head>
+<body>
+    <h1>Afficher les Articles</h1>
+    <ul th:each="article: ${articles}">
+        <li th:text="${article.getLibelle()}">
+        
+        </li>
+        <li>
+        <a th:href="@{/articles/supprimer/__${article.getId()}__}">Supprimer</a>
+        </li>
+    </ul>
+</body>
+</html>

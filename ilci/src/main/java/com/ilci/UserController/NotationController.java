@@ -58,4 +58,16 @@ public class NotationController {
 
         return "redirect:/notations";
     }
+    
+ // Afficher les notes par promo
+    @GetMapping("/notations/{promo_id}")
+    public String notesByPromo(Model model, @PathVariable int promo_id) {
+        Promo promo = promoRepository.findById(promo_id).orElse(null);
+        if (promo != null) {
+            model.addAttribute("notes", notationRepository.findByPromo(promo));
+            return "note/by_promo";
+        } else {
+            return "redirect:/notations";
+        }
+    }
 }

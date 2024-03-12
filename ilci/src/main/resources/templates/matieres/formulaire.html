@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		<h2 class="text-center">Ajouter une matière</h2>
+		
+		<form method="post" th:action="@{/matiere/insert}" th:object="${matiere}">
+			
+			<input type="hidden" th:field="*{id}"/>	
+		
+			  
+			
+			  
+			  
+			  <div class="mb-3">
+			    <label class="form-label">Libelle</label>
+			    <input type="text" class="form-control" th:field="*{libelle}">
+			  </div>
+			 <div class="mb-3">
+			  	<div class="mb-3 form-check" th:each="promo: ${promos}">
+			    	<input type="radio" class="form-check-input" th:field="*{promo}" th:id="${promo.id}" th:value="${promo.id}" name="promo">
+			    	<label class="form-check-label" th:for="${promo.id}">[[${promo.nom}]]</label>
+			  	</div>
+			  	
+			  </div>
+			  
+			  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+
+

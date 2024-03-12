@@ -15,6 +15,7 @@
 				<th>Nom</th>
 				<th>Etudiants</th>
 				<th>Matières</th>
+				<th>Notes</th>
 				<th>Action</th>
 			</tr>
 			
@@ -27,6 +28,13 @@
 				<td>
 					<span th:each="mat: ${promo.matieres}">[[${mat.libelle}]] - </span>
 				</td>
+				
+				<td>
+					<span th:each="user: ${promo.users}">
+						<span th:each="notation: ${user.notes}">[[${notation.note}]] - </span>
+					 </span>
+				</td>
+				
 				<td>
 					<a >UP</a>
 					<a th:href="@{promos/__${promo.id}__}">DEL</a>

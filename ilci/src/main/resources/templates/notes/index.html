@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		<h2 class="text-center">Gestion notes</h2>
+		
+		<table class="table table-striped">
+			<tr class="table-dark">
+				<th>ID</th>
+				<th>Etudiant</th>
+				<th>Matiere</th>
+				<th>Note</th>
+				<th>Moyen Generale</th>
+				<th>Action</th>
+			</tr>
+			
+			<tr th:each="note: ${notes}">
+				<td th:text=${note.id}></td>
+				<td th:text=${note.user.nom}></td>
+				<td th:text=${note.matiere.libelle}></td>
+				<td th:text=${note.noteValue}></td>
+				<td th:text=${note.user.moyenne}></td>
+				
+				<td>
+					<a th:href="@{notes/update/__${note.id}__}">UP</a>
+					<a th:href="@{notes/delete/__${note.id}__}">DEL</a>
+				</td>
+			</tr>
+			
+		</table>
+		
+		<a th:href="@{/note/add}">Ajouter une note</a>
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+
+

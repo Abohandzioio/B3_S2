@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		<h2 class="text-center">Ajouter une note</h2>
+		
+		<form method="post" th:action="@{/note/insert}" th:object="${note}">
+			
+			<input type="hidden" th:field="*{id}"/>	
+		
+			  
+			
+			  <div class="mb-3">
+			    <label class="form-label">Note</label>
+			    <input type="text" class="form-control" th:field="*{noteValue}">
+			    <div th:if="${#fields.hasErrors('noteValue')}" th:errors="*{noteValue}" class="alert alert-danger p-1 mt-1"></div>
+			  </div>
+			  <div class="form-group col-md-4">
+			  
+			  <div>Choisir un étudiant</div>
+			    <select class="form-select" aria-label="Default select example" th:field="*{user}">
+			       <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.prenom}"></option>
+			    </select>
+			</div>
+			
+			<div class="form-group col-md-4">
+			    <div>Choisir une matiere</div>
+			
+			    <select class="form-select" aria-label="Default select example" th:field="*{matiere}">
+			    <option th:each="matiere : ${matieres}" th:value="${matiere.id}"
+			          th:text="${matiere.libelle}"></option>
+			</select></div>
+			  
+			  
+			  
+			 
+			  
+			  <button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+
+

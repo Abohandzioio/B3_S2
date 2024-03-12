@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des articles</title>
+</head>
+<body>
+    <h1>Liste des articles</h1>
+    <ul>
+        <li th:each="article : ${articles}">
+            <span th:text="${article.libelle}"></span> - <span th:text="${article.prix}"></span>
+            <a th:href="@{'/articles/supprimer/' + ${article.id}}">(Supprimer)</a>
+        </li>
+    </ul>
+</body>
+</html>

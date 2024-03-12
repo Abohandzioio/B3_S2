@@ -1,5 +1,8 @@
 package com.ilci.UserController;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ilci.model.Promo;
+import com.ilci.model.User;
 import com.ilci.repository.PromoRepository;
+import com.ilci.repository.UserRepository;
 
 @Controller
 public class PromoController {
@@ -18,6 +23,8 @@ public class PromoController {
     @Autowired
     PromoRepository promoRepository;
 
+    @Autowired
+    UserRepository userRepository;
     @GetMapping( "/promos" )
     public String index( Model model ) {
         model.addAttribute( "promo", new Promo() );
@@ -42,5 +49,15 @@ public class PromoController {
             ra.addFlashAttribute( "warning", "La promo " + promo.getNom() + " contient des users et/ou matières" );
         }
         return "redirect:/promos";
+    }
+    
+    @GetMapping("/promos/etudiant/{id}")
+    public String etudiantPromo(@PathVariable int id, Model model) {
+    	Promo promo = promoRepository.findById(id).get();
+        List<User> listetudiant = userRepository.findByPromo(promo);
+        model.addAttribute("etudiants" , listetudiant);
+        model.addAttribute( "promo_id" , id);
+        
+    			return "promo/etudiant";
     }
 }
