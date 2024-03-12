@@ -9,8 +9,6 @@ import com.ilci.model.Promo;
 
 public interface NotationRepository extends JpaRepository<Notation, Integer> {
 
-List<Notation> findByMatiere_Promo(Promo promo);
-    
-    List<Notation> findByPromo(Promo promo);
+    List<Notation> findByPromo( Promo promo );
 
 }
