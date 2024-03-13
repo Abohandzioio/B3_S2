@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +22,7 @@ public class Categorie {
     private Integer       id;
 
     @Column( length = 20, unique = true )
+    @Size( min = 2, max = 20 )
     private String        nom;
 
     @OneToMany( mappedBy = "categorie" )
