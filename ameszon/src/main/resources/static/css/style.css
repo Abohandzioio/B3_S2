@@ -1,3 +1,14 @@
 @charset "UTF-8";
 
 a{text-decoration: none;}
+
+img{max-width: 100%}
+
+td{
+	height: 50px;
+	width: 50px
+}
+
+td img{
+	width: 30%
+}

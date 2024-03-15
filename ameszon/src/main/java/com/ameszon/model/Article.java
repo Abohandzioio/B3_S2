@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,12 +27,13 @@ public class Article {
 
     @Column( length = 20 )
     @Size( min = 2, max = 20 )
+    @NotNull
     private String                libelle;
 
     @Min( 1 )
     private double                prix;
 
-    @Size( min = 0 )
+    @Min( 0 )
     private int                   stock;
 
     @Column( length = 20 )
@@ -44,7 +46,7 @@ public class Article {
 
     @Column( length = 30 )
     @Size( min = 7, max = 30 )
-    private String                image;
+    private String                image = "pc.jpeg";
 
     // @Size(min = 2, max = 20)
     private String                description;
@@ -55,6 +57,13 @@ public class Article {
 
     @OneToMany( mappedBy = "article" )
     private List<LigneDeCommande> ldc;
+
+    @OneToMany( mappedBy = "article" )
+    private List<ArticlePanier>   paniers;
+
+    public String getLogo() {
+        return "/img/" + this.image;
+    }
 
     @Override
     public String toString() {

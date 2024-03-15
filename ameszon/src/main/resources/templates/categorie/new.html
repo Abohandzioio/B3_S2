@@ -10,6 +10,7 @@
 		<h2 class="text-center">Ajouter une catégorie</h2>
 		
 		<form th:action="@{/categorie}" method="post" th:object="${categorie}">
+		<input type="hidden" th:field="*{id}"/>
 			<div class="row">
 				<div class="col-6 form-group">
 					<label for="">Nom de la catégorie</label>

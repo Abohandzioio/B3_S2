@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		<h2 class="text-center">Faites vos achats</h2>
+		
+		<div class="d-flex row" style="max-width: 100%">
+		
+			<div class="card col-3 m-4" th:each="art: ${articles}">
+				<img th:src="${art.logo}" style="width: 100%; height: 100%" th:alt=${art.libelle} />
+				
+				<div class="card-body">
+				    <h5 class="card-title">[[${art.libelle}]] à [[${art.prix}]]€</h5>
+				    <p class="card-text">
+				    	[[${art.description}]]
+<!-- 				    	[[${#strings.substring(art.description, 0, 10)}]] [...] -->
+				    </p>
+				    <a href="#" class="btn btn-primary w-100">Commander</a>
+				</div>
+			
+			</div>
+		</div>
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+
+

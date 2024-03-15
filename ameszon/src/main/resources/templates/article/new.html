@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		<h2 class="text-center">Ajouter un article</h2>
+		
+		<form th:action="@{/article}" method="post" th:object="${article}">
+			<input type="hidden" th:field="*{id}"/>
+			<div class="row">
+				<div class="col-6 form-group">
+					<label for="">Libellé</label>
+					<input type="text" th:field="*{libelle}" class="form-control" />
+					<div th:if="${#fields.hasErrors('libelle')}" th:errors="*{libelle}" class="alert alert-danger p-1 mt-1"></div>
+				</div>
+				<div class="col-6 form-group">
+					<label for="">Marque</label>
+					<input type="text" th:field="*{marque}" class="form-control" />
+					<div th:if="${#fields.hasErrors('marque')}" th:errors="*{marque}" class="alert alert-danger p-1 mt-1"></div>
+				</div>
+				
+				<div class="col-6 form-group">
+					<label for="">Prix</label>
+					<input type="number" th:field="*{prix}" class="form-control" />
+					<div th:if="${#fields.hasErrors('prix')}" th:errors="*{prix}" class="alert alert-danger p-1 mt-1"></div>
+				</div>
+				<div class="col-6 form-group">
+					<label for="">Quantité stock</label>
+					<input type="number" th:field="*{stock}" class="form-control" />
+					<div th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}" class="alert alert-danger p-1 mt-1"></div>
+				</div>
+				
+				<div class="col-6 form-group">
+					<label for="">Type article</label>
+					<input type="text" th:field="*{type}" class="form-control" />
+					<div th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="alert alert-danger p-1 mt-1"></div>
+				</div>
+				<div class="col-6 form-group">
+					<label for="">Catégorie</label>
+					<select th:field="*{categorie}" class="form-select">
+						<option th:each="cat: ${categories}" th:value="${cat.id}" th:text="${cat.nom}"></option>
+					</select>
+				</div>
+				
+				<div class="col-6 form-group">
+					<label for="">Description article</label>
+					<textarea th:field="*{description}" class="form-control" cols="30" rows="8"></textarea>
+					<div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="alert alert-danger p-1 mt-1"></div>
+				</div>
+<!-- 				<div class="col-6 form-group"> -->
+<!-- 					<label for="">image</label> -->
+<!-- 					<input type="file" th:field="*{image}" class="form-control" /> -->
+<!-- 					<div th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="alert alert-danger p-1 mt-1"></div> -->
+<!-- 				</div> -->
+			</div>
+				
+			<div class="col-6">
+				<input type="submit" class="btn btn-success mt-4" />
+			</div>
+		
+		</form>
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+
+

@@ -45,9 +45,13 @@ public class CategorieController {
             return "categorie/new";
         }
 
-        categorieService.createCat( categorie );
-
-        ra.addFlashAttribute( "success", "La ctégorie est ajoutée avec succès" );
+        if ( categorie.getId() != null ) {
+            categorieService.updateCategorie( categorie.getId(), categorie );
+            ra.addFlashAttribute( "success", "La ctégorie est modifiée avec succès" );
+        } else {
+            categorieService.createCat( categorie );
+            ra.addFlashAttribute( "success", "La ctégorie est ajoutée avec succès" );
+        }
 
         return "redirect:/categorie";
     }
@@ -67,12 +71,29 @@ public class CategorieController {
         return "redirect:/categorie";
     }
 
+    @GetMapping( "/update/{id}" )
+    public String update( Model model, @PathVariable int id, RedirectAttributes ra ) {
+
+        Optional<Categorie> cat = categorieService.getCategorieById( id );
+
+        if ( cat.isPresent() ) {
+            model.addAttribute( "categorie", cat.get() );
+            return "categorie/new";
+        }
+
+        return "redirect:/categorie";
+    }
+
     @GetMapping( "/delete/{id}" )
     public String delete( @PathVariable int id, RedirectAttributes ra ) {
 
         // A COMPLETER
 
-        categorieService.deleteCatById( id );
+        try {
+            categorieService.deleteCatById( id );
+        } catch ( Exception e ) {
+            ra.addFlashAttribute( "warning", "Cette catégorie ne peut pas être supprimée!" );
+        }
 
         return "redirect:/categorie";
     }
