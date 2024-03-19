@@ -49,7 +49,7 @@ public class User {
     private String         tel;
 
     @Column( length = 10 )
-    private String         statut;
+    private String         statut = "CLIENT";
 
     @Column( length = 30 )
     private String         email;

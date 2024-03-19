@@ -48,7 +48,7 @@ public class Article {
     @Size( min = 7, max = 30 )
     private String                image = "pc.jpeg";
 
-    // @Size(min = 2, max = 20)
+    @Size( min = 60, max = 300 )
     private String                description;
 
     @ManyToOne
@@ -63,6 +63,17 @@ public class Article {
 
     public String getLogo() {
         return "/img/" + this.image;
+    }
+
+    public Article() {
+        this.description = """
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Nisi laudantium quam omnis blanditiis minus temporibus non dolorum
+                fugit modi est ea saepe numquam quis repudiandae animi sint aspernatur porro
+                et quae maxime earum labore illum eos sit dignissimos neque tempore nobis ab
+                quod quos voluptatum vel quia architecto. Provident officiis beatae minus assumenda
+                eveniet deleniti dolor eius iste? Amet praesentium at quia rerum fugit error.
+                """;
     }
 
     @Override

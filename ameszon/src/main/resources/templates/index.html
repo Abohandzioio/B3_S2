@@ -11,16 +11,18 @@
 		
 		<div class="d-flex row" style="max-width: 100%">
 		
-			<div class="card col-3 m-4" th:each="art: ${articles}">
-				<img th:src="${art.logo}" style="width: 100%; height: 100%" th:alt=${art.libelle} />
-				
+			<div class="card col-3 m-1" th:each="art: ${articles}">
+				<a th:href="@{/article/detail/__${art.id}__}" class="" style="width: 100%; height: 100%">
+					<img th:src="${art.logo}" th:alt=${art.libelle} />
+				</a>
 				<div class="card-body">
 				    <h5 class="card-title">[[${art.libelle}]] à [[${art.prix}]]€</h5>
 				    <p class="card-text">
-				    	[[${art.description}]]
-<!-- 				    	[[${#strings.substring(art.description, 0, 10)}]] [...] -->
+				    	<a th:href="@{/article/detail/__${art.id}__}" class="" style="width: 100%; height: 100%">
+ 				    		[[${#strings.substring(art.description, 0, 60)}]] [...]
+ 				    	</a>
 				    </p>
-				    <a href="#" class="btn btn-primary w-100">Commander</a>
+
 				</div>
 			
 			</div>

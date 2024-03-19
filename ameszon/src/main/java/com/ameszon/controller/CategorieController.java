@@ -18,7 +18,7 @@ import com.ameszon.services.CategorieService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping( "/categorie" )
+@RequestMapping( "/categorie/admin" )
 public class CategorieController {
 
     @Autowired
@@ -53,7 +53,7 @@ public class CategorieController {
             ra.addFlashAttribute( "success", "La ctégorie est ajoutée avec succès" );
         }
 
-        return "redirect:/categorie";
+        return "redirect:/categorie/admin";
     }
 
     @GetMapping( "/show/{id}" )
@@ -68,7 +68,7 @@ public class CategorieController {
 
         ra.addFlashAttribute( "warning", "La catégorie demandée n'exixte pas!" );
 
-        return "redirect:/categorie";
+        return "redirect:/categorie/admin";
     }
 
     @GetMapping( "/update/{id}" )
@@ -81,7 +81,7 @@ public class CategorieController {
             return "categorie/new";
         }
 
-        return "redirect:/categorie";
+        return "redirect:/categorie/admin";
     }
 
     @GetMapping( "/delete/{id}" )
@@ -95,7 +95,7 @@ public class CategorieController {
             ra.addFlashAttribute( "warning", "Cette catégorie ne peut pas être supprimée!" );
         }
 
-        return "redirect:/categorie";
+        return "redirect:/categorie/admin";
     }
 
 }

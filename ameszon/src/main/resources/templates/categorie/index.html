@@ -9,7 +9,7 @@
 	<main class="container-fluid">
 		<h2>Liste des catégories</h2>
 		
-		<a th:href="@{/categorie/new}" class="btn btn-outline-success mb-3">Add</a>
+		<a th:href="@{/categorie/admin/new}" class="btn btn-outline-success mb-3">Add</a>
 		
 		<table class="table table-striped table-hover">
 			<tr class="table-dark">
@@ -19,12 +19,12 @@
 			
 			<tr th:each="cat: ${categories}">
 				<td>
-					<a th:href="@{/categorie/show/__${cat.id}__}"> [[${cat.nom}]]</a>
+					<a th:href="@{/categorie/admin/show/__${cat.id}__}"> [[${cat.nom}]]</a>
 				</td>
 				<td>
-					<a th:href="@{/categorie/update/__${cat.id}__}"><i class="fa-solid fa-pen"></i></a>
+					<a th:href="@{/categorie/admin/update/__${cat.id}__}"><i class="fa-solid fa-pen"></i></a>
 					- 
-					<a th:href="@{/categorie/delete/__${cat.id}__}"><i class="fa-solid fa-trash"></i></a>
+					<a th:href="@{/categorie/admin/delete/__${cat.id}__}"><i class="fa-solid fa-trash"></i></a>
 				</td>
 			</tr>
 			

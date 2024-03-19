@@ -12,3 +12,10 @@ td{
 td img{
 	width: 30%
 }
+
+#panierValue{
+	position: relative;
+    top: -15px;
+    right: 8px;
+    color: red;
+}

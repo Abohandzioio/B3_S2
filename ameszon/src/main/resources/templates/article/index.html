@@ -9,7 +9,7 @@
 	<main class="container-fluid">
 		<h2>Liste des articles</h2>
 		
-		<a th:href="@{/article/new}" class="btn btn-outline-success mb-3">Add</a>
+		<a th:href="@{/article/new/admin}" class="btn btn-outline-success mb-3">Add</a>
 		
 		<table class="table table-striped table-hover">
 			<tr class="table-dark">
@@ -25,14 +25,14 @@
 					<img th:src="${art.logo}" th:alt=${art.libelle} />
 				</td>
 				<td>
-					<a th:href="@{/article/show/__${art.id}__}"> [[${art.libelle}]]</a>
+					<a th:href="@{/article/show/admin/__${art.id}__}"> [[${art.libelle}]]</a>
 				</td>
 				<td th:text="${art.prix}"></td>
 				<td th:text="${art.stock}"></td>
 				<td>
-					<a th:href="@{/article/update/__${art.id}__}"><i class="fa-solid fa-pen"></i></a>
+					<a th:href="@{/article/update/admin/__${art.id}__}"><i class="fa-solid fa-pen"></i></a>
 					- 
-					<a th:href="@{/article/delete/__${art.id}__}"><i class="fa-solid fa-trash"></i></a>
+					<a th:href="@{/article/delete/admin/__${art.id}__}"><i class="fa-solid fa-trash"></i></a>
 				</td>
 			</tr>
 			

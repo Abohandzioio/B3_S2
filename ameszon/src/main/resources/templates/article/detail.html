@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		
+		<div class="row mt-5">
+			
+			<div class="col-4 text-center">
+				<h3>[[${article.libelle}]] [[${article.marque}]]</h3>
+				<img th:src="${article.logo}" alt="" />
+				<h3 th:text="${article.prix}+'€'"></h3>
+			</div>
+			
+			<div class="col-4 text-center">
+				<h5>Type d'article [[${article.type}]] de catégorie [[${article.categorie.nom}]]</h5>
+				<p th:text="${article.description}"></p>
+				<p th:text="'Quantité en stock: ' + ${article.stock}"></p>
+			</div>
+			
+			<div class="col-4 text-center">
+				<div>Quantité</div>
+				<form action="" class="">
+				
+					<input type="hidden" th:value="${article.id}"/>
+					<input type="hidden" th:value="${article.prix}"/>
+					<input type="hidden" th:value="${article.id}"/><!-- panier -->
+										
+					<ul class="pagination justify-content-center">
+					    <li class="page-item">
+					    	<a class="page-link" href="#">-</a>
+					    </li>
+					    <li class="page-item">
+					     	<input type="text" value="1" id="qqt" size="1" class="page-link text-center"/>
+					    </li>
+					    <li class="page-item">
+					    	<a class="page-link" href="#">+</a>
+					    </li>
+					  </ul>
+					
+					<div class="my-2 bg-light p-2 mx-5"> 
+						Total <span id="total">[[${article.prix}]]</span> €
+					</div>
+					
+					<div class="mt-3">
+						<input type="submit" value="Ajouter au panier" />
+					</div>
+				</form>
+			</div>
+		
+		</div>
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+

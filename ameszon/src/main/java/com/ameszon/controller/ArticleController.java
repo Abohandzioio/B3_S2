@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ameszon.model.Article;
+import com.ameszon.model.ArticlePanier;
 import com.ameszon.services.ArticleService;
 import com.ameszon.services.CategorieService;
 
@@ -26,14 +27,23 @@ public class ArticleController {
     @Autowired
     CategorieService categorieService;
 
-    @GetMapping
+    @GetMapping( "/admin" )
     public String index( Model model ) {
         model.addAttribute( "articles", articleService.getAllArticle() );
 
         return "article/index";
     }
 
-    @GetMapping( "/new" )
+    @GetMapping( "/detail/{id}" )
+    public String detail( Model model, @PathVariable int id ) {
+
+        model.addAttribute( "article", articleService.getArticleById( id ) );
+        model.addAttribute( "artPanier", new ArticlePanier() );
+
+        return "article/detail";
+    }
+
+    @GetMapping( "/new/admin" )
     public String create( Model model ) {
         model.addAttribute( "article", new Article() );
         model.addAttribute( "categories", categorieService.getAllCategories() );
@@ -52,14 +62,14 @@ public class ArticleController {
         articleService.createArticle( article );
         ra.addFlashAttribute( "success", "Article créé avec succès ! " );
 
-        return "redirect:/article";
+        return "redirect:/article/admin";
     }
 
-    @GetMapping( "/update/{id}" )
+    @GetMapping( "/update/admin/{id}" )
     public String update( @PathVariable int id, Model model, RedirectAttributes ra ) {
         if ( articleService.getArticleById( id ) == null ) {
             ra.addFlashAttribute( "warning", "Cet article n'existe pas ! " );
-            return "redirect:/article";
+            return "redirect:/article/admin";
         }
 
         model.addAttribute( "article", articleService.getArticleById( id ) );
@@ -68,7 +78,7 @@ public class ArticleController {
         return "article/new";
     }
 
-    @GetMapping( "/delete/{id}" )
+    @GetMapping( "/delete/admin/{id}" )
     public String delete( @PathVariable int id, RedirectAttributes ra ) {
         if ( articleService.getArticleById( id ) == null ) {
             ra.addFlashAttribute( "warning", "Cet article n'existe pas ! " );
@@ -78,6 +88,6 @@ public class ArticleController {
         articleService.deleteArticleById( id );
         ra.addFlashAttribute( "success", "Article supprimé avec succès ! " );
 
-        return "redirect:/article";
+        return "redirect:/article/admin";
     }
 }
