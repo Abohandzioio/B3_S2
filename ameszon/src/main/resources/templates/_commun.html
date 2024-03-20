@@ -65,10 +65,10 @@
 			<div class="text-end m-3 border border-2 border-primary rounded-circle p-3">
 				<a href=""> 
 					<i class="fa-solid fa-cart-shopping"></i> 
-					<span id="panierValue">3</span> 
+					<span th:if="${session.user}" id="panierValue" th:text="${#lists.size(session.panierList.paniers)}">0</span> 
 				</a>
 			</div>
-		      <div class="text-end" th:if="${session.user}" th:text="${session.user.prenom}">toto</div>
+		      <div th:if="${session.user}"  class="text-end" th:text="${session.user.prenom}">toto</div>
 		</nav>
 		
 		<div class="aler alert-danger p-2 mt-3 text-center" th:if="${warning}" th:text="${warning}">warning</div>

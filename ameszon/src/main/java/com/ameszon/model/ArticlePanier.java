@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +17,7 @@ public class ArticlePanier {
     @EmbeddedId
     private ArticlePanierKey id;
 
-    @Size( min = 0 )
+    @Min( 1 )
     private int              quantity = 1;
     private double           prix;
 

@@ -24,18 +24,19 @@
 			
 			<div class="col-4 text-center">
 				<div>Quantité</div>
-				<form action="" class="">
+				<form th:action="@{/panier}" method="post" th:object="${artPanier}">
 				
-					<input type="hidden" th:value="${article.id}"/>
-					<input type="hidden" th:value="${article.prix}"/>
-					<input type="hidden" th:value="${article.id}"/><!-- panier -->
+					<input type="hidden" name="article" th:value="${article.id}"/>
+					<input type="hidden" name="prix" th:value="${article.prix}"/>
+					<!--<input type="hidden" th:value="${article.id}"/> panier -->
 										
 					<ul class="pagination justify-content-center">
 					    <li class="page-item">
 					    	<a class="page-link" href="#">-</a>
 					    </li>
 					    <li class="page-item">
-					     	<input type="text" value="1" id="qqt" size="1" class="page-link text-center"/>
+					     	<input type="text" th:field="*{quantity}" id="qqt" size="1" class="page-link text-center"/>
+					     	<div th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="alert alert-danger p-1 mt-1">error</div>
 					    </li>
 					    <li class="page-item">
 					    	<a class="page-link" href="#">+</a>

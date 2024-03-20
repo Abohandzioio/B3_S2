@@ -16,4 +16,12 @@ public class ArticlePanierKey {
     @Column( name = "id_panier" )
     private Integer panierId;
 
+    public ArticlePanierKey() {
+    }
+
+    public ArticlePanierKey( Integer articleId, Integer panierId ) {
+        this.articleId = articleId;
+        this.panierId = panierId;
+    }
+
 }

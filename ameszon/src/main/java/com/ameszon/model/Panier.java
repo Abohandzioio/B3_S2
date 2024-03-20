@@ -1,5 +1,6 @@
 package com.ameszon.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -25,11 +26,11 @@ public class Panier {
     private User                user;
 
     @OneToMany( mappedBy = "panier" )
-    private List<ArticlePanier> paniers;
+    private List<ArticlePanier> paniers = new ArrayList<>();
 
     @Override
     public String toString() {
-        return "Panier [id=" + id + ", paniers=" + paniers + "]";
+        return "Panier [id=" + id;
     }
 
 }
