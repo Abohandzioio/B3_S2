@@ -24,4 +24,9 @@ public class ArticlePanierKey {
         this.panierId = panierId;
     }
 
+    @Override
+    public String toString() {
+        return "ArticlePanierKey [articleId=" + articleId + ", panierId=" + panierId + "]";
+    }
+
 }

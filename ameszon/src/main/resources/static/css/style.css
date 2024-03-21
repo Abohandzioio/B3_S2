@@ -19,3 +19,7 @@ td img{
     right: 8px;
     color: red;
 }
+
+.changeQtityCart:hover{
+	cursor: pointer;
+}

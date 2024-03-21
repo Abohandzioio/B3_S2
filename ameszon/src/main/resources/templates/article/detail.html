@@ -13,13 +13,13 @@
 			<div class="col-4 text-center">
 				<h3>[[${article.libelle}]] [[${article.marque}]]</h3>
 				<img th:src="${article.logo}" alt="" />
-				<h3 th:text="${article.prix}+'€'"></h3>
+				<h3><span id="prix">[[${article.prix}]]</span> €</h3>
 			</div>
 			
 			<div class="col-4 text-center">
 				<h5>Type d'article [[${article.type}]] de catégorie [[${article.categorie.nom}]]</h5>
 				<p th:text="${article.description}"></p>
-				<p th:text="'Quantité en stock: ' + ${article.stock}"></p>
+				<p>Quantité en stock: <span id="stock">[[${article.stock}]]</span></p>
 			</div>
 			
 			<div class="col-4 text-center">
@@ -32,14 +32,14 @@
 										
 					<ul class="pagination justify-content-center">
 					    <li class="page-item">
-					    	<a class="page-link" href="#">-</a>
+					    	<span class="page-link changeQtityCart">-</span>
 					    </li>
 					    <li class="page-item">
-					     	<input type="text" th:field="*{quantity}" id="qqt" size="1" class="page-link text-center"/>
+					     	<input readonly type="text" th:field="*{quantity}" id="qqt" size="1" class="page-link text-center"/>
 					     	<div th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}" class="alert alert-danger p-1 mt-1">error</div>
 					    </li>
 					    <li class="page-item">
-					    	<a class="page-link" href="#">+</a>
+					    	<span class="page-link changeQtityCart">+</span>
 					    </li>
 					  </ul>
 					
@@ -56,6 +56,40 @@
 		</div>
 		
 	</main>
+	
+	<script>
+	let btnPaniers = document.getElementsByClassName('changeQtityCart');
+	let qttPanier = document.getElementById('qqt');
+	let total = document.getElementById('total');
+	const STOCK = document.getElementById('stock').innerText;
+	const PRIX = document.getElementById('prix').innerText;
+	
+	console.log(PRIX)
+	
+	for(let i = 0; i < btnPaniers.length; i++){
+		btnPaniers[i].addEventListener('click', (e) => {
+			
+			//Recup signe + ou -
+			let signe = e.target.innerText;
+			
+			//Recup valeur de l'input
+			let inputVal = parseInt( qttPanier.value );
+			
+			//si + incrémentation sinon décrémentation
+			signe == "+" ? inputVal++ : inputVal--; 
+			
+			if( inputVal < 1 ) inputVal = 1;
+			if( inputVal > STOCK ) inputVal = STOCK;
+			
+			qttPanier.value = inputVal;
+			total.innerText = inputVal * PRIX;
+		});
+	}
+	
+	
+	
+	
+	</script>
 	
 	<th:block th:insert="~{_commun :: footer}"></th:block>
 

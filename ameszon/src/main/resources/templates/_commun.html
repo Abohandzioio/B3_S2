@@ -62,13 +62,13 @@
 		        
 		      </ul>
 			</div>
-			<div class="text-end m-3 border border-2 border-primary rounded-circle p-3">
-				<a href=""> 
+			<div th:if="${session.user}"  class="text-end m-3 border border-2 border-primary rounded-circle p-3">
+				<a th:href="@{/panier/show/__${session.user.panier.id}__}"> 
 					<i class="fa-solid fa-cart-shopping"></i> 
-					<span th:if="${session.user}" id="panierValue" th:text="${#lists.size(session.panierList.paniers)}">0</span> 
+					<span th:if="${session.user}" id="panierValue" th:text="${session.totalArt}">0</span> 
 				</a>
 			</div>
-		      <div th:if="${session.user}"  class="text-end" th:text="${session.user.prenom}">toto</div>
+		    <div th:if="${session.user}"  class="text-end" th:text="${session.user.prenom}">toto</div>
 		</nav>
 		
 		<div class="aler alert-danger p-2 mt-3 text-center" th:if="${warning}" th:text="${warning}">warning</div>

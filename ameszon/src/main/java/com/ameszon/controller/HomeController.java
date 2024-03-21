@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.ameszon.model.ArticlePanier;
 import com.ameszon.model.User;
 import com.ameszon.repository.PanierRepository;
 import com.ameszon.repository.UserRepository;
@@ -29,9 +30,17 @@ public class HomeController {
         // à déplacer dans usercontroller
         User u = userRepository.findByLoginAndMdp( "ilci", "ilci" );
         session.setAttribute( "user", u );
-        session.setAttribute( "panierList", panierRepository.findByUser( u ) );
+        session.setAttribute( "totalArt", totalPanier( u ) );
 
         return "index";
+    }
+
+    private int totalPanier( User u ) {
+        int nbArt = 0;
+        for ( ArticlePanier ap : panierRepository.findByUser( u ).getPaniers() )
+            nbArt += ap.getQuantity();
+
+        return nbArt;
     }
     //
     // @GetMapping( "/new" )

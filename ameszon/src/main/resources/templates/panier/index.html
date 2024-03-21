@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+	<th:block th:insert="~{_commun :: head}"></th:block>
+
+<body>
+
+	<th:block th:insert="~{_commun :: header}"></th:block>
+	
+	<main class="container-fluid">
+		<h2 class="text-center">Mon panier</h2>
+		<hr />
+		<div class="row mt-5">
+			
+			<div class="col-4 text-center" th:each="art: ${artPanier}">
+				<h3>[[${art.article.libelle}]] [[${art.article.marque}]]</h3>
+				<img th:src="${art.article.logo}" alt="" />
+				<h3><span id="prix">[[${art.article.prix}]]</span> €</h3>
+			
+				<div class="col-4 text-center">
+					<h5>Type d'article [[${art.article.type}]] de catégorie [[${art.article.categorie.nom}]]</h5>
+					<p th:text="${art.article.description}"></p>
+					<p>Quantité en stock: <span id="stock">[[${art.article.stock}]]</span></p>
+				</div>
+			
+			</div>
+			
+		
+		</div>
+		
+		
+	</main>
+	
+	<th:block th:insert="~{_commun :: footer}"></th:block>
+
+</body>
+</html>
+
+
+
+
+
