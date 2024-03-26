@@ -1,5 +1,7 @@
 package com.ameszon.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,9 +64,18 @@ public class PanierController {
 
     @GetMapping( "/show/{id}" )
     public String showPanier( @PathVariable Integer id, Model model ) {
-        model.addAttribute( "artPanier", artPanierRepository.findAllByPanierId( id ) );
+        model.addAttribute( "artsPanier", artPanierRepository.findAllByPanierId( id ) );
+        model.addAttribute( "total", total( artPanierRepository.findAllByPanierId( id ) ) );
 
         return "panier/index";
+    }
+
+    private double total( List<ArticlePanier> artpaniers ) {
+        double total = 0.0;
+        for ( ArticlePanier artP : artpaniers ) {
+            total += artP.getPrix() * artP.getQuantity();
+        }
+        return total;
     }
 
 }

@@ -9,26 +9,82 @@
 	<main class="container-fluid">
 		<h2 class="text-center">Mon panier</h2>
 		<hr />
-		<div class="row mt-5">
-			
-			<div class="col-4 text-center" th:each="art: ${artPanier}">
-				<h3>[[${art.article.libelle}]] [[${art.article.marque}]]</h3>
-				<img th:src="${art.article.logo}" alt="" />
-				<h3><span id="prix">[[${art.article.prix}]]</span> €</h3>
-			
-				<div class="col-4 text-center">
-					<h5>Type d'article [[${art.article.type}]] de catégorie [[${art.article.categorie.nom}]]</h5>
-					<p th:text="${art.article.description}"></p>
-					<p>Quantité en stock: <span id="stock">[[${art.article.stock}]]</span></p>
+		<div class="row mt-5" th:if="${session.totalArt}">
+			<div class="col-8">
+				
+				<div class="card mb-3" th:each="art, compteur : ${artsPanier}">
+					<div class="card-body row">
+					<!-- 	COMPTEUR NOMBRE ARTICLE -->
+						<div class="col-1 text-center fw-bold">[[${compteur.count}]]</div>
+						
+						<div class="col-3">
+							<img th:src="${art.article.logo}" alt="" />
+						</div>
+						
+					
+						<div class="col-5">
+							<h4>[[${art.article.libelle}]] [[${art.article.marque}]]</h4>
+							<h5>Type d'article [[${art.article.type}]] de catégorie [[${art.article.categorie.nom}]]</h5>
+							<p th:text="${art.article.description}"></p>
+							<h6><span id="">[[${art.article.prix}]]</span> €</h6>
+							<p>Quantité en stock: <span id="stock">[[${art.article.stock}]]</span></p>								
+						</div>
+						
+						<form action="" class="col-3">
+							<ul class="pagination justify-content-center">
+								<li class="page-item">
+							    	<span class="page-link changeQtityCart">-</span>
+							    </li>
+							    <li class="page-item">
+							     	<input readonly type="text" 
+							     			th:value="${art.quantity}" 
+							     			id="toto" size="1" class="page-link text-center"/>
+							    </li>
+							    <li class="page-item">
+							    	<span class="page-link changeQtityCart" th:id="'plus'+${art.article.id}">+</span>
+							    </li>
+							</ul>
+							<div>Total prix : <span id="">[[${art.article.prix} * ${art.quantity}]]</span> €</div>
+						</form>
+						
+					</div>
 				</div>
-			
+					
 			</div>
 			
+			<div class="col-4">
+				Total Panier pour ([[${session.totalArt}]] articles)
+				<div class="fw-bold"> <span id="totalPanier">[[${total}]]</span> €</div> 
+				
+				<button class="btn btn-primary mt-2"  data-bs-toggle="modal" data-bs-target="#validerCommande">Valider ma commande</button>
+			</div>
 		
+		</div>
+		<div class="text-center h2 m-5" th:unless="${session.totalArt}">
+			Votre panier est vide
 		</div>
 		
 		
 	</main>
+	
+	<!-- Modal pour valider une commande -->
+	<div class="modal" tabindex="-1" id="validerCommande">
+		<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<h5 class="modal-title">Validation panier</h5>
+	        		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      		</div>
+		     	 <div class="modal-body">
+		        	<p class="fw-bold">Total panier : <span>[[${total}]]</span> € </p>
+		      	</div>
+		      	<div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+			        <a th:href="@{/commande/valider/__${session.user.panier.id}__}" class="btn btn-primary">Valider</a>
+		      	</div>
+	    </div>
+	  </div>
+	</div>
 	
 	<th:block th:insert="~{_commun :: footer}"></th:block>
 

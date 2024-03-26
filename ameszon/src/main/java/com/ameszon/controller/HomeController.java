@@ -28,7 +28,7 @@ public class HomeController {
         model.addAttribute( "articles", articleService.getAllArticle() );
 
         // à déplacer dans usercontroller
-        User u = userRepository.findByLoginAndMdp( "ilci", "ilci" );
+        User u = userRepository.findByLoginAndMdp( "ilci3", "ilci" );
         session.setAttribute( "user", u );
         session.setAttribute( "totalArt", totalPanier( u ) );
 
@@ -36,9 +36,12 @@ public class HomeController {
     }
 
     private int totalPanier( User u ) {
+
         int nbArt = 0;
-        for ( ArticlePanier ap : panierRepository.findByUser( u ).getPaniers() )
-            nbArt += ap.getQuantity();
+
+        if ( panierRepository.findByUser( u ) != null )
+            for ( ArticlePanier ap : panierRepository.findByUser( u ).getPaniers() )
+                nbArt += ap.getQuantity();
 
         return nbArt;
     }
