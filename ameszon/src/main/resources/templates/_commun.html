@@ -16,6 +16,10 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous" />
 	
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+	integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+	crossorigin="anonymous"></script>
+	
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	
 <title>AMESZON</title>
@@ -62,7 +66,7 @@
 		        
 		      </ul>
 			</div>
-			<div th:if="${session.user}"  class="text-end m-3 border border-2 border-primary rounded-circle p-3">
+			<div th:if="${session.user}"  class="text-end m-3 ">
 				<a th:href="@{/panier/show/__${session.user.panier.id}__}"> 
 					<i class="fa-solid fa-cart-shopping"></i> 
 					<span th:if="${session.user}" id="panierValue" th:text="${session.totalArt}">0</span> 
