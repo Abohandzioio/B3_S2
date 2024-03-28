@@ -21,16 +21,20 @@
 							<img th:src="${art.article.logo}" alt="" />
 						</div>
 						
-					
 						<div class="col-5">
 							<h4>[[${art.article.libelle}]] [[${art.article.marque}]]</h4>
 							<h5>Type d'article [[${art.article.type}]] de catégorie [[${art.article.categorie.nom}]]</h5>
 							<p th:text="${art.article.description}"></p>
 							<h6><span th:id="prix+${art.article.id}">[[${art.article.prix}]]</span> €</h6>
-							<p>Quantité en stock: <span th:id="stock+${art.article.id}">[[${art.article.stock}]]</span></p>								
+							<p>Quantité en stock: <span th:id="stock+${art.article.id}">[[${art.article.stock}]]</span></p>		
+							
+							<a th:href="@{/panier/delete/article/__${session.user.panier.id}__}"> 
+								<i class="fa-solid fa-trash"></i> 
+							</a>						
 						</div>
 						
 						<form action="" class="col-3">
+							<input type="hidden" th:value="${art.panier.id}" class="id_panier"/>
 							<ul class="pagination justify-content-center">
 								<li class="page-item">
 							    	<span class="page-link changeQtityCart" th:id="${art.article.id}">-</span>
@@ -91,8 +95,11 @@
 	<script>
 	
 		$('.changeQtityCart').click( function(){
+
+			let id_panier = $(".id_panier").val();
 			let input_val;
 			let id_art;
+			qttArtPanier = parseInt(document.getElementById("panierValue").innerHTML);
 			
 			//Recup signe + ou -
 			const SIGNE = $(this).html();
@@ -102,13 +109,18 @@
 				//valeur attribut pid
 				id_art = $(this).attr("pid");
 				//vleur de l'input plus incrémentation
-				input_val = +$("#input" + id_art).val() + 1
+				input_val = +$("#input" + id_art).val() + 1;
+				//MAJ QTT TOTAL ARTPANIER
+				qttArtPanier++;
 			}
 			else if( SIGNE == "-" ){
 				//valeur attribut id
 				id_art = $(this).attr("id");
 				//vleur de l'input plus décrémentation
-				input_val = $("#input" + id_art).val() - 1
+				input_val = $("#input" + id_art).val() - 1;
+				//MAJ QTT TOTAL ARTPANIER
+				qttArtPanier--; 
+				
 			}
 			
 			//Recup qtt stock
@@ -131,11 +143,27 @@
 			
 			//parcours somme par art*qtt
 			for(let i = 0; i < sommePanier.length; i++){
-				somme += +sommePanier[i].innerHTML;
+				somme += parseFloat( sommePanier[i].innerHTML );
 			}
 			
 			//MAJ total panier
 			$("#totalPanier").html(somme);
+
+			//MAJ VALEUR SUR L'ICONE PANIER
+			document.getElementById("panierValue").innerHTML = qttArtPanier;
+			
+			
+			//ENVOIE REQUETE AJAX - UPDATE QUANTITE PANIER D'UN ARTICLE
+			$.ajax({
+				url: "/panier/update/"+id_panier+"/"+id_art+"/"+input_val,
+				type: 'POST',
+				data: {id_panier: id_panier, id_article: id_art, qtt: input_val},
+				success: function(result){
+					console.log(result);
+				}
+				
+			});
+			
 		}); 	
 		
 	</script>

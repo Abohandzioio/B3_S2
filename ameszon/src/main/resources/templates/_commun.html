@@ -69,7 +69,7 @@
 			<div th:if="${session.user}"  class="text-end m-3 ">
 				<a th:href="@{/panier/show/__${session.user.panier.id}__}"> 
 					<i class="fa-solid fa-cart-shopping"></i> 
-					<span th:if="${session.user}" id="panierValue" th:text="${session.totalArt}">0</span> 
+					<span id="panierValue" th:text="${session.totalArt}">0</span> 
 				</a>
 			</div>
 		    <div th:if="${session.user}"  class="text-end" th:text="${session.user.prenom}">toto</div>
