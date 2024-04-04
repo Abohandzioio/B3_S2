@@ -27,6 +27,7 @@ public class HomeController {
 
     @GetMapping
     public String index( Model model, HttpSession session ) {
+
         model.addAttribute( "articles", articleService.getAllArticle() );
 
         // à déplacer dans usercontroller

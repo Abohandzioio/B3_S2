@@ -83,8 +83,12 @@
 		        	<p class="fw-bold">Total panier : <span>[[${total}]]</span> € </p>
 		      	</div>
 		      	<div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-			        <a th:href="@{/commande/valider/__${session.user.panier.id}__}" class="btn btn-primary">Valider</a>
+			        <form th:action="@{/commande/valider}" method="post" th:object="${panier}">
+			        	<input type="hidden" th:field="*{id}"/>
+			        	<input type="hidden" th:field="*{user}"/>
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+				        <button type="submit" class="btn btn-primary" >Valider</button>
+			        </form>
 		      	</div>
 	    </div>
 	  </div>

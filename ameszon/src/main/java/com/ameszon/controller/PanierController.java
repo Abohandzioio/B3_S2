@@ -66,6 +66,7 @@ public class PanierController {
     public String showPanier( @PathVariable Integer id, Model model ) {
         model.addAttribute( "artsPanier", artPanierRepository.findAllByPanierId( id ) );
         model.addAttribute( "total", total( artPanierRepository.findAllByPanierId( id ) ) );
+        model.addAttribute( "panier", panierRepository.findById( id ).get() );
 
         return "panier/index";
     }

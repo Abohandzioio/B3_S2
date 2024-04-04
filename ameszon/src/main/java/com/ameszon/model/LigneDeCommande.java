@@ -30,10 +30,21 @@ public class LigneDeCommande {
 
     private double     prix;
 
+    public LigneDeCommande() {
+    }
+
     @Override
     public String toString() {
         return "LigneDeCommande [id=" + id + ", article=" + article + ", commande=" + commande + ", quantity="
                 + quantity + ", prix=" + prix + "]";
+    }
+
+    public LigneDeCommande( ArticleCommandeKey id, Article article, Commande commande, int quantity, double prix ) {
+        this.id = id;
+        this.article = article;
+        this.commande = commande;
+        this.quantity = quantity;
+        this.prix = prix;
     }
 
 }

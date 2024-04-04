@@ -5,13 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ameszon.model.Article;
+import com.ameszon.model.ArticleCommandeKey;
 import com.ameszon.model.ArticlePanier;
+import com.ameszon.model.Commande;
+import com.ameszon.model.LigneDeCommande;
+import com.ameszon.model.Panier;
 import com.ameszon.repository.ArtPanierRepository;
-import com.ameszon.repository.PanierRepository;
+import com.ameszon.repository.ArticleRepository;
+import com.ameszon.repository.CommandeRepository;
+import com.ameszon.repository.LDCRepository;
+import com.ameszon.services.PanierService;
 
 @Controller
 @RequestMapping( "/commande" )
@@ -20,22 +27,43 @@ public class CommandeController {
     @Autowired
     ArtPanierRepository artPanierRepository;
     @Autowired
-    PanierRepository    panierRepository;
+    PanierService       panierService;
+    @Autowired
+    CommandeRepository  commandeRepository;
+    @Autowired
+    ArticleRepository   articleRepository;
+    @Autowired
+    LDCRepository       ldcRepository;
 
-    @GetMapping( "/valider/{id}" )
-    public String showPanier( @PathVariable Integer id, Model model ) {
-        model.addAttribute( "artsPanier", artPanierRepository.findAllByPanierId( id ) );
-        model.addAttribute( "total", total( artPanierRepository.findAllByPanierId( id ) ) );
+    @PostMapping( "/valider" )
+    public String showPanier( Panier panier, Model model ) {
+        // Recup des articles dans le panier
+        List<ArticlePanier> artPanier = artPanierRepository.findAllByPanierId( panier.getId() );
 
-        return "panier/index";
-    }
+        // Création de la commande
+        Commande cmd = new Commande( panier.getUser() );
+        commandeRepository.save( cmd );
 
-    private double total( List<ArticlePanier> artpaniers ) {
-        double total = 0.0;
-        for ( ArticlePanier artP : artpaniers ) {
-            total += artP.getPrix() * artP.getQuantity();
+        // PARCOURS LDC
+        for ( ArticlePanier artP : artPanier ) {
+            Article article = artP.getArticle();
+
+            // CLE PRIMAIRE POUR LA RELATION LDC ENTRE ARTICLE ET CMD
+            ArticleCommandeKey artCmdkey = new ArticleCommandeKey( article.getId(), cmd.getId() );
+
+            LigneDeCommande ldc = new LigneDeCommande( artCmdkey, article, cmd, artP.getQuantity(), artP.getPrix() );
+
+            // MAJ QTTY ARTICLE
+            article.setStock( article.getStock() - artP.getQuantity() );
+            articleRepository.save( article );
+
+            // SAVE LDC
+            ldcRepository.save( ldc );
+
+            // DELETE LINE IN PANIERARTICLE
+            artPanierRepository.delete( artP );
         }
-        return total;
-    }
 
+        return "redirect:/";
+    }
 }
