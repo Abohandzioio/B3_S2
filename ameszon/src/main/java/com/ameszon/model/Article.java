@@ -46,9 +46,9 @@ public class Article {
 
     @Column( length = 30 )
     @Size( min = 7, max = 30 )
-    private String                image = "pc.jpeg";
+    private String                image;
 
-    @Size( min = 60, max = 300 )
+    @Size( min = 60, max = 700 )
     private String                description;
 
     @ManyToOne
@@ -61,8 +61,11 @@ public class Article {
     @OneToMany( mappedBy = "article" )
     private List<ArticlePanier>   paniers;
 
+    @OneToMany( mappedBy = "article" )
+    private List<Images>          images;
+
     public String getLogo() {
-        return "/img/" + this.image;
+        return "/img/" + this.libelle + "/" + this.image;
     }
 
     public Article() {
@@ -79,8 +82,7 @@ public class Article {
     @Override
     public String toString() {
         return "Article [id=" + id + ", libelle=" + libelle + ", prix=" + prix + ", stock=" + stock + ", marque="
-                + marque + ", type=" + type + ", image=" + image + ", description=" + description + ", ldc=" + ldc
-                + "]";
+                + marque + ", type=" + type + ", description=" + description + "]";
     }
 
 }
