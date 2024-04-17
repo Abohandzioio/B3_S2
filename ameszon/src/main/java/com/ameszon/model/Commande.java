@@ -54,6 +54,6 @@ public class Commande {
 
     @Override
     public String toString() {
-        return "Commande [id=" + id + ", date=" + date + ", facture=" + facture + ", ldc=" + ldc + "]";
+        return "Commande [id=" + id + ", date=" + date + "]";
     }
 }
